@@ -1,15 +1,15 @@
 <script setup>
-	import Button from "./components/Button.vue";
+	import IconPlus from "./components/IconPlus.vue";
 	import { ref, computed } from "vue";
 
-	const n = ref(0);
+	const log = console.log
 
-	function increment() {
-	 n.value++
-	}
+	const int = ref(0)
+
+	const a = () => int.value++ && log(int.value)
+
 </script>
 
 <template>
-	<Button :handleClick="increment"/>
-		{{ n }}
+	<IconPlus :handleClick="a"/>
 </template>
