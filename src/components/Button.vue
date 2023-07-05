@@ -1,13 +1,15 @@
 <script setup>
-	import { ref } from "vue";
-
-	defineProps({
-	text: String,
-	click: Function
+	const props = defineProps({
+	text: {
+	type: [String, Number],
+	default: "button",
+	},
+	handleClick: Function
 	})
-
 </script>
 
 <template>
-	<button class="btn" @click="click"> {{ text }} </button>
+	<button class="btn" @click="handleClick">
+		{{ text }}
+	</button>
 </template>
