@@ -2,6 +2,8 @@
 	import Overlay from "./components/Overlay.vue";
 	import LightBox from "./components/LightBox.vue";
 
+	import Menu from "./components/Menu.vue";
+
 	import { ref, computed } from "vue";
 
 	const log = console.log;
@@ -11,6 +13,8 @@
 	const toggleLightBox = ref(true);
 
 	const nextPrev = ref(0)
+
+	const productItemCount = ref(5);
 
 	function handleNext() {
 	nextPrev.value += ImageYOffset
@@ -65,6 +69,9 @@
 	:handleClose="handleLightBoxToggle" 
 	:handleClick="handleLightBoxClick" />
 
-<!--	<Overlay v-if="toggleLightBox"
-		 :handleClick="handleLightBoxToggle"/> -->
+	<Overlay v-if="toggleLightBox"
+		 :handleClick="handleLightBoxToggle"/>
+
+	<Menu :itemCount="productItemCount" />
+
 </template>
