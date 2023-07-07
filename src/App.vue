@@ -1,19 +1,44 @@
 <script setup>
-	import Button from "./components/Button.vue";
-	import IconCart from "./components/IconCart.vue";
+	import Overlay from "./components/Overlay.vue";
+	import LightBox from "./components/LightBox.vue";
+
 	import { ref, computed } from "vue";
 
-	const log = console.log
+	const log = console.log;
 
-	const int = ref(0)
+	const ImageYOffset = -25;
 
-	const a = () => {
-	int.value++
-	log(int.value)
+	const toggleLightBox = ref(true);
+
+	const nextPrev = ref(0)
+
+	function handleNext() {
+	nextPrev.value += ImageYOffset
+	nextPrev.value <= -100 ? (nextPrev.value = 0) : void 0
+	log(nextPrev.value)
 	}
+
+	function handlePrev() {
+	nextPrev.value += -ImageYOffset
+	nextPrev.value > 0 ? (nextPrev.value += ImageYOffset) : void 0
+	log(nextPrev.value)
+	}
+
+	function handleLightBoxToggle() {
+	toggleLightBox.value = false;
+	}
+
 
 </script>
 
 <template>
-	<Button :hasIcon=true :handleClick="a" text="button" />
+	<LightBox 
+	v-if="toggleLightBox"
+	:handleNext="handleNext"
+	:handlePrev="handlePrev"
+	:offsetY=nextPrev 
+	:handleClose="handleLightBoxToggle" />
+
+<!--	<Overlay v-if="toggleLightBox"
+		 :handleClick="handleLightBoxToggle"/> -->
 </template>

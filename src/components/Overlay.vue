@@ -1,10 +1,11 @@
 <script setup>
 	const props = defineProps({
-	cover: Boolean
+	handleClick: Function
 	})
 </script>
 
 <template>
-	<div class="overlay" :class="{show: cover }"> </div>
+	<div class="overlay" @click="handleClick">
+	</div>
 </template>
 
