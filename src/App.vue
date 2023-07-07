@@ -28,6 +28,31 @@
 	toggleLightBox.value = false;
 	}
 
+	function handleLightBoxClick(e) {
+
+	if (e) {
+	const { imgPos } = e.target.dataset
+
+	switch(imgPos) {
+	case "one":
+	nextPrev.value = 0;
+	break;
+	case "two":
+	nextPrev.value = -25;
+	break;
+	case "three":
+	nextPrev.value = -50;
+	break;
+	case "four":
+	nextPrev.value = -75;
+	break;
+	default:
+	nextPrev.value = 0;
+	break;
+	}
+	}
+	}
+
 
 </script>
 
@@ -37,7 +62,8 @@
 	:handleNext="handleNext"
 	:handlePrev="handlePrev"
 	:offsetY=nextPrev 
-	:handleClose="handleLightBoxToggle" />
+	:handleClose="handleLightBoxToggle" 
+	:handleClick="handleLightBoxClick" />
 
 <!--	<Overlay v-if="toggleLightBox"
 		 :handleClick="handleLightBoxToggle"/> -->

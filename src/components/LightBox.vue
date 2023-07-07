@@ -14,6 +14,7 @@
 
 	const props = defineProps({
 	handleClose: Function,
+	handleClick: Function,
 	handleNext: Function,
 	handlePrev: Function,
 	offsetY: [String, Number],
@@ -54,9 +55,10 @@
 		</div>
 
 		<div class="light-box-thumbnails fx cn even">
-			<div class="thumbnail" v-for="img in img_thumbnail">
+			<div class="thumbnail" v-for="(img, key) in img_thumbnail" @click="handleClick">
 				<img :src="img"
-				alt="thumbnail" />
+				alt="thumbnail"
+				:data-img-pos="key"/>
 			</div>
 		</div>
 	</div>
