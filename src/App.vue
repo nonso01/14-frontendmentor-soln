@@ -1,8 +1,9 @@
 <script setup>
 	import Overlay from "./components/Overlay.vue";
 	import LightBox from "./components/LightBox.vue";
-
 	import Menu from "./components/Menu.vue";
+
+	import CartBox from "./components/CartBox.vue";
 
 	import { ref, computed } from "vue";
 
@@ -10,11 +11,15 @@
 
 	const ImageYOffset = -25;
 
-	const toggleLightBox = ref(true);
+	// reactive states down here
+
+	const toggleLightBox = ref(false);
+
+	const toggleCart = ref(false);
 
 	const nextPrev = ref(0)
 
-	const productItemCount = ref(5);
+	const productItemCount = ref(2);
 
 	function handleNext() {
 	nextPrev.value += ImageYOffset
@@ -57,6 +62,12 @@
 	}
 	}
 
+	function handleItemCount(){}
+
+	function handleToggleCart() {
+	toggleCart.value = !toggleCart.value
+	}
+
 
 </script>
 
@@ -72,6 +83,11 @@
 	<Overlay v-if="toggleLightBox"
 		 :handleClick="handleLightBoxToggle"/>
 
-	<Menu :itemCount="productItemCount" />
+	<Menu
+		:itemCount="productItemCount" 
+		:handleCart="handleToggleCart" 
+		:toggleCart="toggleCart" />
+
+		<!--	<CartBox :itemCount=productItemCount /> -->
 
 </template>

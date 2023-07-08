@@ -2,10 +2,17 @@
 	import Logo from "./Logo.vue";
 	import IconCart from "./IconCart.vue";
 	import Avatar from "./Avatar.vue";
+	import CartBox from "./CartBox.vue";
+
+	import { Transition } from "vue";
 
 	const props = defineProps({
 	pageLogoColor: String,
 	itemCount: Number,
+	handleDelete: Function,
+	handleCheckout: Function,
+	handleCart: Function,
+	toggleCart: Boolean,
 	});
 
 	const menuItems = [
@@ -30,8 +37,16 @@
 		</div>
 
 		<div class="page-cart-avatar fx cn even">
-			<IconCart :itemCount="itemCount" />
-			<Avatar />
+			<IconCart :itemCount="itemCount"
+			:handleClick="handleCart" />
+			<Avatar :handleClick="handleCart" />
+
+			<Transition name="cart-fade">
+			<CartBox v-if="toggleCart" 
+				       :handleDelete="handleDelete" 
+				       :handleCheckout="handleCheckout" 
+				       :itemCount="itemCount" />
+			</Transition>
 		</div>
 
 

@@ -7,7 +7,7 @@
 </script>
 
 <template>
-	<div class="img-avatar">
+	<div class="img-avatar" @click="handleClick">
 		<img :src="img_avatar" alt="product avatar" />
 	</div>
 </template>
