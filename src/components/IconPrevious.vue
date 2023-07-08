@@ -1,12 +1,14 @@
 <script setup>
-	const props = defineProps({
-	handleClick: Function
-	})
-	// stroke #1d2026 in path
+const props = defineProps({
+  handleClick: Function,
+});
+// stroke #1d2026 in path
 </script>
 
 <template>
-	<div class="icon prev move fx cn" @click="handleClick">
-	<svg width="12" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke-width="3" fill-rule="evenodd"/></svg>
-	</div>
+  <div class="icon prev move fx cn" @click="handleClick">
+    <svg width="12" height="18" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11 1 3 9l8 8" stroke-width="3" fill-rule="evenodd" />
+    </svg>
+  </div>
 </template>
