@@ -45,7 +45,7 @@ then
 	sass --style=compressed -w src/scss:dist
 
 else
-	echo "./auto [option1] [option2]"
+	echo "./auto option1] [option2]"
 	echo "
 	ga = git add .
 

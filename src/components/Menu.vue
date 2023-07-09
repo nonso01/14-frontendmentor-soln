@@ -39,7 +39,7 @@ const menuItems = ["Collections", "Men", "Women", "Dark", "Light"];
       />
       <Avatar :handleClick="handleCart" />
 
-      <Transition name="cart-fade">
+      <Transition name="item-fade">
         <CartBox
           v-if="toggleCart"
           :handleDelete="handleDelete"
