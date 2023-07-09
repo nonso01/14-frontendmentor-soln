@@ -11,6 +11,7 @@ const props = defineProps({
   handleCheckout: Function,
   handleDelete: Function,
   itemCount: [String, Number],
+  deleteItem: Boolean,
 });
 
 const price = 125.0;
@@ -22,7 +23,7 @@ const price = 125.0;
 
     <hr />
 
-    <div class="cart-details fx col even cn">
+    <div v-if="deleteItem" class="cart-details fx col even cn">
       <div class="cart-summary fx even cn">
         <div class="cart-thumbnail">
           <img :src="img_thumbnail_one" alt="thumbnail" />
@@ -42,6 +43,10 @@ const price = 125.0;
         <IconDelete :handleClick="handleDelete" />
       </div>
       <Button text="Checkout" :handleClick="handleCheckout" />
+    </div>
+
+    <div v-else class="cart-no-detail fx cn">
+      <Text text="Your cart is empty" />
     </div>
   </div>
 </template>

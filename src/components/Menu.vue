@@ -13,6 +13,7 @@ const props = defineProps({
   handleCheckout: Function,
   handleCart: Function,
   toggleCart: Boolean,
+  deleteItem: Boolean,
 });
 
 const menuItems = ["Collections", "Men", "Women", "Dark", "Light"];
@@ -31,7 +32,11 @@ const menuItems = ["Collections", "Men", "Women", "Dark", "Light"];
     </div>
 
     <div class="page-cart-avatar fx cn even">
-      <IconCart :itemCount="itemCount" :handleClick="handleCart" />
+      <IconCart
+        :deleteItem="deleteItem"
+        :itemCount="itemCount"
+        :handleClick="handleCart"
+      />
       <Avatar :handleClick="handleCart" />
 
       <Transition name="cart-fade">
@@ -40,6 +45,7 @@ const menuItems = ["Collections", "Men", "Women", "Dark", "Light"];
           :handleDelete="handleDelete"
           :handleCheckout="handleCheckout"
           :itemCount="itemCount"
+          :deleteItem="deleteItem"
         />
       </Transition>
     </div>

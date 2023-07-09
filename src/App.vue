@@ -2,8 +2,7 @@
 import Overlay from "./components/Overlay.vue";
 import LightBox from "./components/LightBox.vue";
 import Menu from "./components/Menu.vue";
-
-import CartBox from "./components/CartBox.vue";
+import Product from "./components/Product.vue";
 
 import { ref, computed } from "vue";
 
@@ -20,6 +19,8 @@ const toggleCart = ref(false);
 const nextPrev = ref(0);
 
 const productItemCount = ref(2);
+
+const deleteItem = ref(!false); // testing
 
 function handleNext() {
   nextPrev.value += ImageYOffset;
@@ -66,6 +67,13 @@ function handleItemCount() {}
 function handleToggleCart() {
   toggleCart.value = !toggleCart.value;
 }
+
+function handleDeleteCartItem() {
+  log(productItemCount.value);
+
+  productItemCount.value = 0;
+  deleteItem.value = !deleteItem.value;
+}
 </script>
 
 <template>
@@ -83,8 +91,10 @@ function handleToggleCart() {
   <Menu
     :itemCount="productItemCount"
     :handleCart="handleToggleCart"
+    :handleDelete="handleDeleteCartItem"
     :toggleCart="toggleCart"
+    :deleteItem="deleteItem"
   />
 
-  <!--	<CartBox :itemCount=productItemCount /> -->
+  <Product />
 </template>
