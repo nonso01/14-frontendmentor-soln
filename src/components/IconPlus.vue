@@ -9,12 +9,12 @@ const props = defineProps({
 </script>
 
 <template>
+	<div class="icon plus" @click="handleClick">
   <svg
     width="12"
     height="12"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    @click="handleClick"
   >
     <defs>
       <path
@@ -24,4 +24,5 @@ const props = defineProps({
     </defs>
     <use :fill="color" fill-rule="nonzero" xlink:href="#b" />
   </svg>
+	</div>
 </template>

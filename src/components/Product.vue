@@ -3,13 +3,15 @@ import ProductImage from "./ProductImage.vue";
 import ProductDetail from "./ProductDetail.vue";
 
 const props = defineProps({
-  handleAddItem: Function,
+  handleAddReduceItem: Function,
+  handleOpenLightBox: Function,
+  offsetY: [String, Number],
 });
 </script>
 
 <template>
   <div class="page-product fx cn even">
-    <ProductImage />
+    <ProductImage :handleClick="handleOpenLightBox" :offsetY="offsetY" />
 
     <ProductDetail />
   </div>

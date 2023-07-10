@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="icon" @click="handleClick">
+  <div class="icon minus" @click="handleClick">
     <svg
       width="12"
       height="4"

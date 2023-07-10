@@ -11,8 +11,8 @@ import img_thumbnail_four from "../assets/images/image-product-4-thumbnail.jpg";
 
 const props = defineProps({
   onMobile: Boolean,
-  toggleLightBox: Boolean,
-  handleProductImg: Function,
+  offsetY: [String, Number],
+  handleClick: Function,
 });
 
 const img_product = {
@@ -34,8 +34,13 @@ const img_thumbnail = {
   <div class="product-image fx col btw">
     <div class="product-image-large">
       <div class="no-overflow">
-        <div class="img_product">
-          <img v-for="item in img_product" :src="item" alt="product image" />
+	      <div class="img_product" @click="handleClick" :style="{'--offsetY': offsetY}">
+          <img
+            v-for="item in img_product"
+            :src="item"
+            alt="product image"
+            data-light-box
+          />
         </div>
       </div>
     </div>
@@ -46,9 +51,9 @@ const img_thumbnail = {
       <div
         v-for="(item, key) in img_thumbnail"
         class="img-thumbnail"
-        :data-img-pos="key"
+        @click="handleClick"
       >
-        <img :src="item" alt="thumbnail" />
+        <img :src="item" alt="thumbnail" data-light-box />
       </div>
     </div>
   </div>

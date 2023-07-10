@@ -4,7 +4,7 @@ import LightBox from "./components/LightBox.vue";
 import Menu from "./components/Menu.vue";
 import Product from "./components/Product.vue";
 
-import { ref, computed } from "vue";
+import { ref, Transition } from "vue";
 
 const log = console.log;
 
@@ -18,20 +18,18 @@ const toggleCart = ref(false);
 
 const nextPrev = ref(0);
 
-const productItemCount = ref(2);
+const productItemCount = ref(5);
 
 const deleteItem = ref(!false); // testing
 
 function handleNext() {
   nextPrev.value += ImageYOffset;
   nextPrev.value <= -100 ? (nextPrev.value = 0) : void 0;
-  log(nextPrev.value);
 }
 
 function handlePrev() {
   nextPrev.value += -ImageYOffset;
   nextPrev.value > 0 ? (nextPrev.value += ImageYOffset) : void 0;
-  log(nextPrev.value);
 }
 
 function handleLightBoxToggle() {
@@ -62,6 +60,12 @@ function handleLightBoxClick(e) {
   }
 }
 
+function handleOpenLightBox(e) {
+  if (e && e.target?.dataset) {
+    toggleLightBox.value = true;
+  }
+}
+
 function handleItemCount() {}
 
 function handleToggleCart() {
@@ -69,8 +73,6 @@ function handleToggleCart() {
 }
 
 function handleDeleteCartItem() {
-  log(productItemCount.value);
-
   productItemCount.value = 0;
   deleteItem.value = !deleteItem.value;
 }
@@ -86,7 +88,9 @@ function handleDeleteCartItem() {
     :handleClick="handleLightBoxClick"
   />
 
-  <Overlay v-if="toggleLightBox" :handleClick="handleLightBoxToggle" />
+  <Transition>
+    <Overlay v-if="toggleLightBox" :handleClick="handleLightBoxToggle" />
+  </Transition>
 
   <Menu
     :itemCount="productItemCount"
@@ -96,5 +100,5 @@ function handleDeleteCartItem() {
     :deleteItem="deleteItem"
   />
 
-  <Product />
+  <Product :handleOpenLightBox="handleOpenLightBox" :offsetY=nextPrev />
 </template>
