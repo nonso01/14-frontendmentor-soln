@@ -5,7 +5,7 @@ import Heading from "./Heading.vue";
 import IconDelete from "./IconDelete.vue";
 import img_thumbnail_one from "../assets/images/image-product-1-thumbnail.jpg";
 
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 const props = defineProps({
   handleCheckout: Function,
@@ -23,7 +23,7 @@ const price = 125.0;
 
     <hr />
 
-    <div v-if="deleteItem" class="cart-details fx col even cn">
+    <div v-if="!deleteItem" class="cart-details fx col even cn">
       <div class="cart-summary fx even cn">
         <div class="cart-thumbnail">
           <img :src="img_thumbnail_one" alt="thumbnail" />

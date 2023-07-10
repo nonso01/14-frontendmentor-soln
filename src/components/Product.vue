@@ -3,9 +3,12 @@ import ProductImage from "./ProductImage.vue";
 import ProductDetail from "./ProductDetail.vue";
 
 const props = defineProps({
-  handleAddReduceItem: Function,
+  handleAddItem: Function,
+  handleReduceItem: Function,
+  handleAddToCart: Function,
   handleOpenLightBox: Function,
   offsetY: [String, Number],
+  itemCount: [String, Number],
 });
 </script>
 
@@ -13,6 +16,11 @@ const props = defineProps({
   <div class="page-product fx cn even">
     <ProductImage :handleClick="handleOpenLightBox" :offsetY="offsetY" />
 
-    <ProductDetail />
+    <ProductDetail
+      :handleAddItem="handleAddItem"
+      :handleReduceItem="handleReduceItem"
+      :handleAddToCart="handleAddToCart"
+      :itemCount="itemCount"
+    />
   </div>
 </template>

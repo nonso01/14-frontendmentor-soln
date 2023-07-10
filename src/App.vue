@@ -9,6 +9,7 @@ import { ref, Transition } from "vue";
 const log = console.log;
 
 const ImageYOffset = -25;
+const maxItem = 30;
 
 // reactive states down here
 
@@ -18,9 +19,11 @@ const toggleCart = ref(false);
 
 const nextPrev = ref(0);
 
-const productItemCount = ref(5);
+const productItemCount = ref(0);
 
-const deleteItem = ref(!false); // testing
+const pseudoItemCount = ref(0);
+
+const deleteItem = ref(true); // i assume they is nothing initially
 
 function handleNext() {
   nextPrev.value += ImageYOffset;
@@ -66,8 +69,6 @@ function handleOpenLightBox(e) {
   }
 }
 
-function handleItemCount() {}
-
 function handleToggleCart() {
   toggleCart.value = !toggleCart.value;
 }
@@ -75,6 +76,23 @@ function handleToggleCart() {
 function handleDeleteCartItem() {
   productItemCount.value = 0;
   deleteItem.value = !deleteItem.value;
+}
+
+function handleAddItem() {
+  pseudoItemCount.value += 1;
+  pseudoItemCount.value > maxItem ? (pseudoItemCount.value = maxItem) : void 0;
+}
+
+function handleReduceItem() {
+  pseudoItemCount.value -= 1;
+  pseudoItemCount.value < 0 ? (pseudoItemCount.value = 0) : void 0;
+}
+
+function handleAddToCart() {
+  if (pseudoItemCount.value > 0) {
+    deleteItem.value = false; // excuse me for this
+    productItemCount.value = pseudoItemCount.value;
+  }
 }
 </script>
 
@@ -100,5 +118,12 @@ function handleDeleteCartItem() {
     :deleteItem="deleteItem"
   />
 
-  <Product :handleOpenLightBox="handleOpenLightBox" :offsetY=nextPrev />
+  <Product
+    :handleOpenLightBox="handleOpenLightBox"
+    :handleAddItem="handleAddItem"
+    :handleReduceItem="handleReduceItem"
+    :handleAddToCart="handleAddToCart"
+    :offsetY="nextPrev"
+    :itemCount="pseudoItemCount"
+  />
 </template>

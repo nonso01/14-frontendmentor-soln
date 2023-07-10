@@ -34,7 +34,11 @@ const img_thumbnail = {
   <div class="product-image fx col btw">
     <div class="product-image-large">
       <div class="no-overflow">
-	      <div class="img_product" @click="handleClick" :style="{'--offsetY': offsetY}">
+        <div
+          class="img_product"
+          @click="handleClick"
+          :style="{ '--offsetY': offsetY }"
+        >
           <img
             v-for="item in img_product"
             :src="item"
