@@ -20,7 +20,7 @@ const menuItems = ["Collections", "Men", "Women", "Dark", "Light"];
 </script>
 
 <template>
-  <div class="page-menu fx btw">
+  <div class="page-menu fx cn btw">
     <div class="page-logo-nav fx cn btw">
       <Logo :color="pageLogoColor" />
 
