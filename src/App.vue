@@ -11,6 +11,8 @@ const log = console.log;
 const ImageYOffset = -25;
 const maxItem = 30;
 
+const onMobile = window.matchMedia("(max-width: 550px)");
+
 // reactive states down here
 
 const toggleLightBox = ref(false);
@@ -92,6 +94,7 @@ function handleAddToCart() {
   if (pseudoItemCount.value > 0) {
     deleteItem.value = false; // excuse me for this
     productItemCount.value = pseudoItemCount.value;
+    log(onMobile);
   }
 }
 </script>
