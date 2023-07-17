@@ -1,18 +1,16 @@
 <script setup>
 const props = defineProps({
-  color: {
-    type: String,
-    default: "#69707d",
-  },
+  handleClick: Function,
 });
 </script>
 
 <template>
-  <svg width="16" height="15" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M16 12v3H0v-3h16Zm0-6v3H0V6h16Zm0-6v3H0V0h16Z"
-      :fill="color"
-      fill-rule="evenodd"
-    />
-  </svg>
+  <div class="icon menu" @click="handleClick">
+    <svg width="16" height="15" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M16 12v3H0v-3h16Zm0-6v3H0V6h16Zm0-6v3H0V0h16Z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </div>
 </template>

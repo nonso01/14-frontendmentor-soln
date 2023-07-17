@@ -2,18 +2,22 @@
 import Overlay from "./components/Overlay.vue";
 import LightBox from "./components/LightBox.vue";
 import Menu from "./components/Menu.vue";
+import MobileMenu from "./components/MobileMenu.vue";
 import Product from "./components/Product.vue";
 
 import { ref, Transition } from "vue";
 
 const log = console.log;
+console.clear();
 
 const ImageYOffset = -25;
+
 const maxItem = 30;
 
-const onMobile = window.matchMedia("(max-width: 550px)");
+const mobileMedia = window.matchMedia("(max-width: 550px)");
 
 // reactive states down here
+const onMobile = ref(mobileMedia.matches);
 
 const toggleLightBox = ref(false);
 
@@ -25,7 +29,14 @@ const productItemCount = ref(0);
 
 const pseudoItemCount = ref(0);
 
-const deleteItem = ref(true); // i assume they is nothing initially
+const deleteItem = ref(true); // i assume there is nothing initially
+
+const mobileToggleMenu = ref(false);
+
+mobileMedia.onchange = (e) => {
+  onMobile.value = e.target.matches;
+  log(onMobile.value);
+};
 
 function handleNext() {
   nextPrev.value += ImageYOffset;
@@ -94,31 +105,46 @@ function handleAddToCart() {
   if (pseudoItemCount.value > 0) {
     deleteItem.value = false; // excuse me for this
     productItemCount.value = pseudoItemCount.value;
-    log(onMobile);
   }
+}
+
+function handleMobileToggleMenu() {
+  mobileToggleMenu.value = !mobileToggleMenu.value;
 }
 </script>
 
 <template>
-  <LightBox
-    v-if="toggleLightBox"
-    :handleNext="handleNext"
-    :handlePrev="handlePrev"
-    :offsetY="nextPrev"
-    :handleClose="handleLightBoxToggle"
-    :handleClick="handleLightBoxClick"
-  />
+  <template v-if="!onMobile">
+    <LightBox
+      v-if="toggleLightBox"
+      :handleNext="handleNext"
+      :handlePrev="handlePrev"
+      :offsetY="nextPrev"
+      :handleClose="handleLightBoxToggle"
+      :handleClick="handleLightBoxClick"
+    />
 
-  <Transition>
-    <Overlay v-if="toggleLightBox" :handleClick="handleLightBoxToggle" />
-  </Transition>
+    <Transition>
+      <Overlay v-if="toggleLightBox" :handleClick="handleLightBoxToggle" />
+    </Transition>
+  </template>
+
+  <template v-if="mobileToggleMenu">
+    <Transition>
+      <MobileMenu :handleMenu="handleMobileToggleMenu" />
+    </Transition>
+
+    <Overlay :handleClick="handleMobileToggleMenu" />
+  </template>
 
   <Menu
     :itemCount="productItemCount"
     :handleCart="handleToggleCart"
     :handleDelete="handleDeleteCartItem"
+    :handleMenu="handleMobileToggleMenu"
     :toggleCart="toggleCart"
     :deleteItem="deleteItem"
+    :onMobile="onMobile"
   />
 
   <Product

@@ -1,6 +1,7 @@
 <script setup>
 import Logo from "./Logo.vue";
 import IconCart from "./IconCart.vue";
+import IconMenu from "./IconMenu.vue";
 import Avatar from "./Avatar.vue";
 import CartBox from "./CartBox.vue";
 
@@ -12,24 +13,35 @@ const props = defineProps({
   handleDelete: Function,
   handleCheckout: Function,
   handleCart: Function,
+  handleMenu: Function,
   toggleCart: Boolean,
   deleteItem: Boolean,
+  onMobile: Boolean,
 });
 
-const menuItems = ["Collections", "Men", "Women", "Dark", "Light"];
+const menuItems = ["Collections", "Men", "Women", "Abourt", "Contact"];
 </script>
 
 <template>
   <div class="page-menu fx cn btw">
-    <div class="page-logo-nav fx cn btw">
-      <Logo :color="pageLogoColor" />
+    <template v-if="!onMobile">
+      <div class="page-logo-nav fx cn btw">
+        <Logo :color="pageLogoColor" />
 
-      <div class="nav">
-        <ul class="fx even">
-          <li v-for="list in menuItems" class="text">{{ list }}</li>
-        </ul>
+        <div class="nav">
+          <ul class="fx even">
+            <li v-for="list in menuItems" class="text">{{ list }}</li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </template>
+
+    <template v-else>
+      <div class="page-logo-nav fx cn btw">
+        <IconMenu :handleClick="handleMenu" />
+        <Logo :color="pageLogoColor" />
+      </div>
+    </template>
 
     <div class="page-cart-avatar fx cn even">
       <IconCart
