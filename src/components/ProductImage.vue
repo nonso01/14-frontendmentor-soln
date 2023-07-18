@@ -1,4 +1,7 @@
 <script setup>
+import IconNext from "./IconNext.vue";
+import IconPrevious from "./IconPrevious.vue";
+
 import img_product_one from "../assets/images/image-product-1.jpg";
 import img_product_two from "../assets/images/image-product-2.jpg";
 import img_product_three from "../assets/images/image-product-3.jpg";
@@ -13,6 +16,8 @@ const props = defineProps({
   onMobile: Boolean,
   offsetY: [String, Number],
   handleClick: Function,
+  handlePrev: Function,
+  handleNext: Function,
 });
 
 const img_product = {
@@ -31,34 +36,49 @@ const img_thumbnail = {
 </script>
 
 <template>
-  <div class="product-image fx col btw">
-    <div class="product-image-large">
-      <div class="no-overflow">
+  <template v-if="!onMobile">
+    <div class="product-image fx col btw">
+      <div class="product-image-large">
+        <div class="no-overflow">
+          <div
+            class="img_product"
+            @click="handleClick"
+            :style="{ '--offsetY': offsetY }"
+          >
+            <img
+              v-for="item in img_product"
+              :src="item"
+              alt="product image"
+              data-light-box
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="product-image-small fx cn btw">
         <div
-          class="img_product"
+          v-for="(item, key) in img_thumbnail"
+          class="img-thumbnail"
           @click="handleClick"
-          :style="{ '--offsetY': offsetY }"
         >
-          <img
-            v-for="item in img_product"
-            :src="item"
-            alt="product image"
-            data-light-box
-          />
+          <img :src="item" alt="thumbnail" data-light-box />
         </div>
       </div>
     </div>
+  </template>
 
-    <div v-if="onMobile"><!-- hide this --></div>
-
-    <div v-else class="product-image-small fx cn btw">
-      <div
-        v-for="(item, key) in img_thumbnail"
-        class="img-thumbnail"
-        @click="handleClick"
-      >
-        <img :src="item" alt="thumbnail" data-light-box />
+  <template v-else>
+    <div class="product-image">
+      <div class="product-image-large">
+        <div class="no-overflow">
+          <div class="img_product fx" :style="{ '--offsetY': offsetY }">
+            <img v-for="item in img_product" :src="item" alt="product image" />
+          </div>
+        </div>
       </div>
+
+      <IconPrevious :handleClick="handlePrev" />
+      <IconNext :handleClick="handleNext" />
     </div>
-  </div>
+  </template>
 </template>

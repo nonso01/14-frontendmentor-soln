@@ -27,7 +27,7 @@ const props = defineProps({
       />
     </div>
 
-    <div class="product-detail-discount">
+    <div class="product-detail-discount fx col even">
       <div class="fx cn btw">
         <span class="text dark b lg"> $125.00 </span>
         <span class="text orange discount">50%</span>

@@ -10,7 +10,8 @@ const props = defineProps({
 
 <template>
   <button v-if="hasIcon" class="btn" @click="handleClick">
-    <IconCart /> {{ text }}
+    <!-- <IconCart /> {{ text }} -->
+    <span class="fx cn even"> <IconCart /> {{ text }} </span>
   </button>
 
   <button v-else class="btn" @click="handleClick">

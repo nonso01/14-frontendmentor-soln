@@ -39,6 +39,7 @@ mobileMedia.onchange = (e) => {
 };
 
 function handleNext() {
+  log("next");
   nextPrev.value += ImageYOffset;
   nextPrev.value <= -100 ? (nextPrev.value = 0) : void 0;
 }
@@ -152,7 +153,10 @@ function handleMobileToggleMenu() {
     :handleAddItem="handleAddItem"
     :handleReduceItem="handleReduceItem"
     :handleAddToCart="handleAddToCart"
+    :handlePrev="handlePrev"
+    :handleNext="handleNext"
     :offsetY="nextPrev"
     :itemCount="pseudoItemCount"
+    :onMobile="onMobile"
   />
 </template>
