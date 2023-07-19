@@ -157,12 +157,13 @@ watch(toggleModal, () => {
     />
   </Transition>
 
-  <template v-if="mobileToggleMenu">
-    <MobileMenu :handleMenu="handleMobileToggleMenu" />
-    <Transition>
-      <Overlay :handleClick="handleMobileToggleMenu" />
-    </Transition>
-  </template>
+  <Transition>
+    <Overlay v-if="mobileToggleMenu" :handleClick="handleMobileToggleMenu" />
+  </Transition>
+
+  <Transition name="cart-fade">
+    <MobileMenu v-if="mobileToggleMenu" :handleMenu="handleMobileToggleMenu" />
+  </Transition>
 
   <Menu
     :itemCount="productItemCount"
