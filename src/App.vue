@@ -4,8 +4,9 @@ import LightBox from "./components/LightBox.vue";
 import Menu from "./components/Menu.vue";
 import MobileMenu from "./components/MobileMenu.vue";
 import Product from "./components/Product.vue";
+import Modal from "./components/Modal.vue";
 
-import { ref, Transition } from "vue";
+import { ref, Transition, watch } from "vue";
 
 const log = console.log;
 console.clear();
@@ -13,6 +14,8 @@ console.clear();
 const ImageYOffset = -25;
 
 const maxItem = 30;
+
+const ONESEC = 1000;
 
 const mobileMedia = window.matchMedia("(max-width: 550px)");
 
@@ -33,13 +36,15 @@ const deleteItem = ref(true); // i assume there is nothing initially
 
 const mobileToggleMenu = ref(false);
 
+const toggleModal = ref(false);
+const modalText = ref("");
+
 mobileMedia.onchange = (e) => {
   onMobile.value = e.target.matches;
   log(onMobile.value);
 };
 
 function handleNext() {
-  log("next");
   nextPrev.value += ImageYOffset;
   nextPrev.value <= -100 ? (nextPrev.value = 0) : void 0;
 }
@@ -90,6 +95,8 @@ function handleToggleCart() {
 function handleDeleteCartItem() {
   productItemCount.value = 0;
   deleteItem.value = !deleteItem.value;
+  toggleModal.value = true;
+  modalText.value = "Item(s) deleted";
 }
 
 function handleAddItem() {
@@ -106,12 +113,24 @@ function handleAddToCart() {
   if (pseudoItemCount.value > 0) {
     deleteItem.value = false; // excuse me for this
     productItemCount.value = pseudoItemCount.value;
+  } else {
+    toggleModal.value = true;
+    modalText.value = "No items added";
   }
 }
 
 function handleMobileToggleMenu() {
   mobileToggleMenu.value = !mobileToggleMenu.value;
 }
+
+function handleToggleModal() {
+  toggleModal.value = !toggleModal.value;
+}
+
+watch(toggleModal, () => {
+  const st = setTimeout(() => (toggleModal.value = false), ONESEC * 2);
+  !toggleModal.value ? clearTimeout(st) : void 0;
+});
 </script>
 
 <template>
@@ -130,12 +149,19 @@ function handleMobileToggleMenu() {
     </Transition>
   </template>
 
-  <template v-if="mobileToggleMenu">
-    <Transition>
-      <MobileMenu :handleMenu="handleMobileToggleMenu" />
-    </Transition>
+  <Transition name="cart-fade">
+    <Modal
+      v-if="toggleModal"
+      :text="modalText"
+      :handleCancel="handleToggleModal"
+    />
+  </Transition>
 
-    <Overlay :handleClick="handleMobileToggleMenu" />
+  <template v-if="mobileToggleMenu">
+    <MobileMenu :handleMenu="handleMobileToggleMenu" />
+    <Transition>
+      <Overlay :handleClick="handleMobileToggleMenu" />
+    </Transition>
   </template>
 
   <Menu
