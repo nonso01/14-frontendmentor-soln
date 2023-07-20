@@ -48,21 +48,17 @@ const toggleModal = ref(false);
 const modalText = ref("");
 
 app.onanimationiteration = (e) => {
-  //log(e?.elapsedTime)
   loaderProgress.value += 1;
-  log(loaderProgress.value);
 };
 
 app.onanimationend = (e) => {
   loading.value = false;
-  log("ended");
 };
 
-setTimeout(() => loading.value = false, ONESEC * 5)
+//setTimeout(() => loading.value = false, ONESEC * 5)
 
 mobileMedia.onchange = (e) => {
   onMobile.value = e.target.matches;
-  //log(onMobile.value);
 };
 
 function handleNext() {
