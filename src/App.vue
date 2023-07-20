@@ -55,7 +55,7 @@ app.onanimationend = (e) => {
   loading.value = false;
 };
 
-//setTimeout(() => loading.value = false, ONESEC * 5)
+setTimeout(() => loading.value = false, ONESEC * 5)
 
 mobileMedia.onchange = (e) => {
   onMobile.value = e.target.matches;
