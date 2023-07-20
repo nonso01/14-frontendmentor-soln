@@ -5,11 +5,14 @@ import Menu from "./components/Menu.vue";
 import MobileMenu from "./components/MobileMenu.vue";
 import Product from "./components/Product.vue";
 import Modal from "./components/Modal.vue";
+import Loader from "./components/Loader.vue";
 
 import { ref, Transition, watch } from "vue";
 
 const log = console.log;
 console.clear();
+
+const app = document.querySelector("#app");
 
 const ImageYOffset = -25;
 
@@ -20,6 +23,10 @@ const ONESEC = 1000;
 const mobileMedia = window.matchMedia("(max-width: 550px)");
 
 // reactive states down here
+const loading = ref(true);
+
+const loaderProgress = ref(0);
+
 const onMobile = ref(mobileMedia.matches);
 
 const toggleLightBox = ref(false);
@@ -37,11 +44,23 @@ const deleteItem = ref(true); // i assume there is nothing initially
 const mobileToggleMenu = ref(false);
 
 const toggleModal = ref(false);
+
 const modalText = ref("");
+
+app.onanimationiteration = (e) => {
+  //log(e?.elapsedTime)
+  loaderProgress.value += 1;
+  log(loaderProgress.value);
+};
+
+app.onanimationend = (e) => {
+  loading.value = false;
+  log("ended");
+};
 
 mobileMedia.onchange = (e) => {
   onMobile.value = e.target.matches;
-  log(onMobile.value);
+  //log(onMobile.value);
 };
 
 function handleNext() {
@@ -165,25 +184,35 @@ watch(toggleModal, () => {
     <MobileMenu v-if="mobileToggleMenu" :handleMenu="handleMobileToggleMenu" />
   </Transition>
 
-  <Menu
-    :itemCount="productItemCount"
-    :handleCart="handleToggleCart"
-    :handleDelete="handleDeleteCartItem"
-    :handleMenu="handleMobileToggleMenu"
-    :toggleCart="toggleCart"
-    :deleteItem="deleteItem"
-    :onMobile="onMobile"
-  />
+  <Transition>
+    <Loader v-if="loading" :loaderProgress="loaderProgress" />
+  </Transition>
 
-  <Product
-    :handleOpenLightBox="handleOpenLightBox"
-    :handleAddItem="handleAddItem"
-    :handleReduceItem="handleReduceItem"
-    :handleAddToCart="handleAddToCart"
-    :handlePrev="handlePrev"
-    :handleNext="handleNext"
-    :offsetY="nextPrev"
-    :itemCount="pseudoItemCount"
-    :onMobile="onMobile"
-  />
+  <Transition>
+    <Menu
+      v-if="!loading"
+      :itemCount="productItemCount"
+      :handleCart="handleToggleCart"
+      :handleDelete="handleDeleteCartItem"
+      :handleMenu="handleMobileToggleMenu"
+      :toggleCart="toggleCart"
+      :deleteItem="deleteItem"
+      :onMobile="onMobile"
+    />
+  </Transition>
+
+  <Transition>
+    <Product
+      v-if="!loading"
+      :handleOpenLightBox="handleOpenLightBox"
+      :handleAddItem="handleAddItem"
+      :handleReduceItem="handleReduceItem"
+      :handleAddToCart="handleAddToCart"
+      :handlePrev="handlePrev"
+      :handleNext="handleNext"
+      :offsetY="nextPrev"
+      :itemCount="pseudoItemCount"
+      :onMobile="onMobile"
+    />
+  </Transition>
 </template>
