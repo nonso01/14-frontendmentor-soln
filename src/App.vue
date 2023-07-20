@@ -55,7 +55,6 @@ app.onanimationend = (e) => {
   loading.value = false;
 };
 
-setTimeout(() => loading.value = false, ONESEC * 5)
 
 mobileMedia.onchange = (e) => {
   onMobile.value = e.target.matches;
@@ -186,7 +185,6 @@ watch(toggleModal, () => {
     <Loader v-if="loading" :loaderProgress="loaderProgress" />
   </Transition>
 
-  <Transition>
     <Menu
       v-if="!loading"
       :itemCount="productItemCount"
@@ -197,9 +195,7 @@ watch(toggleModal, () => {
       :deleteItem="deleteItem"
       :onMobile="onMobile"
     />
-  </Transition>
 
-  <Transition>
     <Product
       v-if="!loading"
       :handleOpenLightBox="handleOpenLightBox"
@@ -212,5 +208,4 @@ watch(toggleModal, () => {
       :itemCount="pseudoItemCount"
       :onMobile="onMobile"
     />
-  </Transition>
 </template>
