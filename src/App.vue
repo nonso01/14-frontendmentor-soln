@@ -58,6 +58,8 @@ app.onanimationend = (e) => {
   log("ended");
 };
 
+setTimeout(() => loading.value = false, ONESEC * 5)
+
 mobileMedia.onchange = (e) => {
   onMobile.value = e.target.matches;
   //log(onMobile.value);
