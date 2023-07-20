@@ -47,14 +47,15 @@ const toggleModal = ref(false);
 
 const modalText = ref("");
 
-app.onanimationiteration = (e) => {
-  loaderProgress.value += 1;
-};
+window.onload = () => {
+  app.onanimationiteration = () => {
+    loaderProgress.value += 1;
+  };
 
-app.onanimationend = (e) => {
-  loading.value = false;
+  app.onanimationend = () => {
+    loading.value = false;
+  };
 };
-
 
 mobileMedia.onchange = (e) => {
   onMobile.value = e.target.matches;
@@ -185,27 +186,27 @@ watch(toggleModal, () => {
     <Loader v-if="loading" :loaderProgress="loaderProgress" />
   </Transition>
 
-    <Menu
-      v-if="!loading"
-      :itemCount="productItemCount"
-      :handleCart="handleToggleCart"
-      :handleDelete="handleDeleteCartItem"
-      :handleMenu="handleMobileToggleMenu"
-      :toggleCart="toggleCart"
-      :deleteItem="deleteItem"
-      :onMobile="onMobile"
-    />
+  <Menu
+    v-if="!loading"
+    :itemCount="productItemCount"
+    :handleCart="handleToggleCart"
+    :handleDelete="handleDeleteCartItem"
+    :handleMenu="handleMobileToggleMenu"
+    :toggleCart="toggleCart"
+    :deleteItem="deleteItem"
+    :onMobile="onMobile"
+  />
 
-    <Product
-      v-if="!loading"
-      :handleOpenLightBox="handleOpenLightBox"
-      :handleAddItem="handleAddItem"
-      :handleReduceItem="handleReduceItem"
-      :handleAddToCart="handleAddToCart"
-      :handlePrev="handlePrev"
-      :handleNext="handleNext"
-      :offsetY="nextPrev"
-      :itemCount="pseudoItemCount"
-      :onMobile="onMobile"
-    />
+  <Product
+    v-if="!loading"
+    :handleOpenLightBox="handleOpenLightBox"
+    :handleAddItem="handleAddItem"
+    :handleReduceItem="handleReduceItem"
+    :handleAddToCart="handleAddToCart"
+    :handlePrev="handlePrev"
+    :handleNext="handleNext"
+    :offsetY="nextPrev"
+    :itemCount="pseudoItemCount"
+    :onMobile="onMobile"
+  />
 </template>
