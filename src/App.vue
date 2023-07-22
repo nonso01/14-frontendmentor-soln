@@ -47,15 +47,15 @@ const toggleModal = ref(false);
 
 const modalText = ref("");
 
-window.onload = () => {
-  app.onanimationiteration = () => {
-    loaderProgress.value += 1;
-    loaderProgress.value >= 100 ? (loaderProgress.value = 100) : void 0;
-  };
+app.onanimationiteration = () => {
+  loaderProgress.value += 1;
+  loaderProgress.value >= 100 ? (loaderProgress.value = 100) : void 0;
+};
 
-  app.onanimationend = () => {
-    loading.value = false;
-  };
+app.onanimationend = () => {
+  loaderProgress.value <= 100
+    ? (loading.value = false)
+    : (loading.value = false);
 };
 
 mobileMedia.onchange = (e) => {
