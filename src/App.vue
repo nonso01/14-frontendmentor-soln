@@ -5,7 +5,6 @@ import Menu from "./components/Menu.vue";
 import MobileMenu from "./components/MobileMenu.vue";
 import Product from "./components/Product.vue";
 import Modal from "./components/Modal.vue";
-import Loader from "./components/Loader.vue";
 
 import { ref, Transition, watch } from "vue";
 
@@ -23,9 +22,6 @@ const ONESEC = 1000;
 const mobileMedia = window.matchMedia("(max-width: 550px)");
 
 // reactive states down here
-const loading = ref(true);
-
-const loaderProgress = ref(0);
 
 const onMobile = ref(mobileMedia.matches);
 
@@ -47,16 +43,6 @@ const toggleModal = ref(false);
 
 const modalText = ref("");
 
-app.onanimationiteration = () => {
-  loaderProgress.value += 1;
-  loaderProgress.value >= 100 ? (loaderProgress.value = 100) : void 0;
-};
-
-window.onanimationend = () => {
-  loaderProgress.value <= 100
-    ? (loading.value = false)
-    : (loading.value = false);
-};
 
 mobileMedia.onchange = (e) => {
   onMobile.value = e.target.matches;
@@ -183,12 +169,8 @@ watch(toggleModal, () => {
     <MobileMenu v-if="mobileToggleMenu" :handleMenu="handleMobileToggleMenu" />
   </Transition>
 
-  <Transition>
-    <Loader v-if="loading" :loaderProgress="loaderProgress" />
-  </Transition>
 
   <Menu
-    v-if="!loading"
     :itemCount="productItemCount"
     :handleCart="handleToggleCart"
     :handleDelete="handleDeleteCartItem"
@@ -199,7 +181,6 @@ watch(toggleModal, () => {
   />
 
   <Product
-    v-if="!loading"
     :handleOpenLightBox="handleOpenLightBox"
     :handleAddItem="handleAddItem"
     :handleReduceItem="handleReduceItem"
