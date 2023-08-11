@@ -14,7 +14,7 @@ console.clear();
 
 const app = document.querySelector("#app");
 
-const ImageYOffset = -25;
+const ImageYOffset = -25; // would have used a smaller int
 
 const maxItem = 30;
 
@@ -52,7 +52,7 @@ app.onanimationiteration = () => {
   loaderProgress.value >= 100 ? (loaderProgress.value = 100) : void 0;
 };
 
-app.onanimationend = () => {
+window.onanimationend = () => {
   loaderProgress.value <= 100
     ? (loading.value = false)
     : (loading.value = false);
