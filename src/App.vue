@@ -15,7 +15,7 @@ const app = document.querySelector("#app");
 
 const ImageYOffset = -25; // would have used a smaller int
 
-const maxItem = 30;
+const maxItem = 15;
 
 const ONESEC = 1000;
 
@@ -42,7 +42,6 @@ const mobileToggleMenu = ref(false);
 const toggleModal = ref(false);
 
 const modalText = ref("");
-
 
 mobileMedia.onchange = (e) => {
   onMobile.value = e.target.matches;
@@ -105,7 +104,11 @@ function handleDeleteCartItem() {
 
 function handleAddItem() {
   pseudoItemCount.value += 1;
-  pseudoItemCount.value > maxItem ? (pseudoItemCount.value = maxItem) : void 0;
+  if (pseudoItemCount.value > maxItem) {
+    pseudoItemCount.value = maxItem;
+    toggleModal.value = true;
+    modalText.value = "Dude it's enough ತ⁠_⁠ʖ⁠ತ";
+  }
 }
 
 function handleReduceItem() {
@@ -168,7 +171,6 @@ watch(toggleModal, () => {
   <Transition name="cart-fade">
     <MobileMenu v-if="mobileToggleMenu" :handleMenu="handleMobileToggleMenu" />
   </Transition>
-
 
   <Menu
     :itemCount="productItemCount"
